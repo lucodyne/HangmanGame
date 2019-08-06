@@ -27,18 +27,20 @@ document.onkeyup = function(keyPress) {
   console.log(keyPress.key);
   letterGuess = keyPress.key;
   letterGuessLower = letterGuess.toLowerCase();
-  if (usedLetters.includes(letterGuessLower) == false) {
-    if (answerLower.includes(letterGuessLower)) {
-      console.log("yes");
-    } else {
-      console.log("no");
-      failCount++;
-      const targetDiv = document.getElementById("guessPool");
-      const failDiv = document.createElement("div");
-      failDiv.textContent = letterGuessLower;
-      failDiv.className = "guessItem";
-      targetDiv.appendChild(failDiv);
+  if ("abcdefghijklmnopqrstuvwxyz".includes(letterGuessLower) == true) {
+    if (usedLetters.includes(letterGuessLower) == false) {
+      if (answerLower.includes(letterGuessLower)) {
+        console.log("yes");
+      } else {
+        console.log("no");
+        failCount++;
+        const targetDiv = document.getElementById("guessPool");
+        const failDiv = document.createElement("div");
+        failDiv.textContent = letterGuessLower;
+        failDiv.className = "guessItem";
+        targetDiv.appendChild(failDiv);
+      }
+      usedLetters.push(letterGuessLower);
     }
-    usedLetters.push(letterGuessLower);
   }
 };
