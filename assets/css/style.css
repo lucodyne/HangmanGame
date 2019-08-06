@@ -3,3 +3,12 @@ body {
   text-align: center;
   font-size: 2.3rem;
 }
+#guessPool {
+  max-width: 70%;
+  margin: auto;
+}
+.guessItem {
+  width: 1rem;
+  float: left;
+  margin: 5px;
+}
