@@ -14,6 +14,8 @@ let failCount = 0;
 let letterGuess;
 let letterGuessLower;
 let answerLower;
+let winCount = 0;
+let lossCount = 0;
 
 // picks a random array value, converts to lower case
 RNG = Math.floor(Math.random() * answerArray.length);
@@ -27,20 +29,26 @@ document.onkeyup = function(keyPress) {
   console.log(keyPress.key);
   letterGuess = keyPress.key;
   letterGuessLower = letterGuess.toLowerCase();
-  if ("abcdefghijklmnopqrstuvwxyz".includes(letterGuessLower) == true) {
-    if (usedLetters.includes(letterGuessLower) == false) {
-      if (answerLower.includes(letterGuessLower)) {
-        console.log("yes");
-      } else {
-        console.log("no");
-        failCount++;
-        const targetDiv = document.getElementById("guessPool");
-        const failDiv = document.createElement("div");
-        failDiv.textContent = letterGuessLower;
-        failDiv.className = "guessItem";
-        targetDiv.appendChild(failDiv);
+  if (failCount < 7) {
+    if ("abcdefghijklmnopqrstuvwxyz".includes(letterGuessLower) == true) {
+      if (usedLetters.includes(letterGuessLower) == false) {
+        if (answerLower.includes(letterGuessLower)) {
+          console.log("yes");
+        } else {
+          console.log("no");
+          failCount++;
+          const targetDiv = document.getElementById("guessPool");
+          const failDiv = document.createElement("div");
+          failDiv.textContent = letterGuessLower;
+          failDiv.className = "guessItem";
+          targetDiv.appendChild(failDiv);
+        }
+        usedLetters.push(letterGuessLower);
+        if (failCount == 7) {
+          document.getElementById("loseBanner").style.opacity = "100%";
+          lossCount;
+        }
       }
-      usedLetters.push(letterGuessLower);
     }
   }
 };
