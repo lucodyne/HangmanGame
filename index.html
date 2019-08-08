@@ -5,26 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>H A N G M A N</title>
-    <link rel="stylesheet" href="/assets/css/normalize.css" />
+    <link rel="stylesheet" href="./assets/css/normalize.css" />
     <link
       href="https://fonts.googleapis.com/css?family=Indie+Flower&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/assets/css/style.css" />
+    <link rel="stylesheet" href="./assets/css/style.css" />
   </head>
   <body>
-    <h1>WELCOME TO HANGMAN!</h1>
+    <h1 id="welcome">WELCOME TO HANGMAN!</h1>
     <img src="#" />
     <h2 id="loseBanner">YOU LOSE</h2>
     <h2 id="winBanner">CONGRATULATIONS!</h2>
-    <div id="keyBlanks">*placeholder for blanks*</div>
+    <div id="keyBlanks"></div>
     <br />
     <div class="guessHeader">guessed letters:</div>
     <div id="guessPool"></div>
-    <div id="winDisplay"></div>
-    <div id="loseDisplay"></div>
     <br /><br />
     <button id="resetti">try again?</button>
-    <script src="/assets/javascript/game.js"></script>
+    <br />
+    <br />
+    <div id="scoreBoard">
+      <div id="winDisplay">*winshere*</div>
+      <div id="loseDisplay">*losseshere*</div>
+    </div>
+    <script src="assets/javascript/game.js"></script>
   </body>
 </html>

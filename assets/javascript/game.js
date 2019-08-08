@@ -17,7 +17,12 @@ const hangman = {
   winScore: 0,
   loseScore: 0,
   usedLetters: [],
-  RNG: 0
+  RNG: 0,
+  dupeCount: 0,
+  checkAnswer: "",
+  correctLetters: 0
+  // note: these will be counted as UNIQUE letters, dupes will apply simulateously
+  // ...maybe
 };
 
 // picks a random array value -> lower case, assigns answer
@@ -27,6 +32,21 @@ function shuffle() {
   hangman.answer = hangman.answerArray[hangman.RNG].toLowerCase();
   console.log(hangman.answer);
   // THIS IS WHERE WE THROW DIVS INTO PLACEHOLDER
+  for (answerIndex = 0; answerIndex < hangman.answer.length; answerIndex++) {
+    const blankSpace = document.getElementById("keyBlanks");
+    const newBlank = document.createElement("div");
+    if (hangman.answer.charAt(answerIndex) == " ") {
+      newBlank.textContent = " ";
+      hangman.correctLetters++;
+    } else {
+      newBlank.textContent = "_";
+    }
+    // divs get different classes based on what letter should go inside
+    newBlank.className = `hiddenLetter letter${hangman.answer.charAt(
+      answerIndex
+    )}`;
+    blankSpace.appendChild(newBlank);
+  }
 }
 // starts the game
 shuffle();
@@ -37,29 +57,53 @@ document.onkeyup = function(keyPress) {
   letterGuess = keyPress.key.toLowerCase();
 
   // comparing guess to answer blocks
+  //check for game over first
   if (hangman.failCount < 7) {
-    if ("abcdefghijklmnopqrstuvwxyz".includes(letterGuess) == true) {
-      if (hangman.usedLetters.includes(letterGuess) == false) {
-        if (hangman.answer.includes(letterGuess)) {
-          console.log("yes");
-          // THIS IS WHERE WE REPLACE THE "_"s WITH LETTERS
-        } else {
-          // create divs with letters in them
-          console.log("no");
-          hangman.failCount++;
-          const targetDiv = document.getElementById("guessPool");
-          const failDiv = document.createElement("div");
-          failDiv.textContent = letterGuess;
-          failDiv.className = "guessItem";
-          targetDiv.appendChild(failDiv);
-        }
-        // updates screen
-        hangman.usedLetters.push(letterGuess);
-        // this is where we lose
-        if (hangman.failCount == 7) {
-          const bannerShow = document.getElementById("loseBanner");
-          // opacity not working ;_; let's try display:
-          hangman.loseScore++;
+    if (hangman.correctLetters < hangman.answer.length) {
+      if ("abcdefghijklmnopqrstuvwxyz".includes(letterGuess) == true) {
+        if (hangman.usedLetters.includes(letterGuess) == false) {
+          if (hangman.answer.includes(letterGuess)) {
+            console.log("yes");
+            // count multiples with a function, hard googled for this: https://teamtreehouse.com/community/how-to-count-the-number-of-times-a-specific-character-appears-in-a-string
+            function multiCheck(checkAnswer, x) {
+              let letterConvert = new RegExp(letterGuess, "g");
+              dupeCount = checkAnswer.match(letterConvert).length;
+              hangman.correctLetters += dupeCount;
+            }
+            // }
+            multiCheck(hangman.answer, letterGuess);
+
+            // REPLACE THE "_"s WITH LETTERS AND COUNT
+            // >_< PLS
+            const changeOut = document.getElementsByClassName(
+              `letter${letterGuess}`
+            );
+            changeOut.innerHTML = letterGuess;
+
+            // hangman.correctLetters++;
+
+            // THIS IS WHERE WE WIN
+            if (hangman.correctLetters == hangman.answer.length) {
+              const bannerShow = document.getElementById("winBanner");
+              hangman.winScore++;
+            }
+          } else {
+            // create divs with letters in them
+            console.log("no");
+            hangman.failCount++;
+            const targetDiv = document.getElementById("guessPool");
+            const failDiv = document.createElement("div");
+            failDiv.textContent = letterGuess;
+            failDiv.className = "guessItem";
+            targetDiv.appendChild(failDiv);
+          }
+          hangman.usedLetters.push(letterGuess);
+          // this is where we lose
+          if (hangman.failCount == 7) {
+            // opacity not working ;_; let's try display:
+            const bannerShow = document.getElementById("loseBanner");
+            hangman.loseScore++;
+          }
         }
       }
     }
@@ -72,8 +116,11 @@ resetBtn.addEventListener("click", function() {
   hangman.usedLetters = [];
   const resetDiv = document.getElementById("guessPool");
   resetDiv.innerHTML = "";
+  const resetKey = document.getElementById("keyBlanks");
+  resetKey.innerHTML = "";
+  hangman.correctLetters = 0;
   shuffle();
 });
 // }
 // ^ this is the close }bracket for onload, do not forget
-// window.onload = hangmanScript();
+// window.onload = hangmanScript()

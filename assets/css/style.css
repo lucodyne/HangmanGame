@@ -2,15 +2,23 @@ body {
   font-family: "Indie Flower", cursive;
   text-align: center;
   font-size: 2.3rem;
-  background: url(/assets/images/notebook-paper.jpg);
+  background-image: url(/assets/images/notebook-paper.jpg);
   background-size: cover;
 }
-/* .guessHeader {
-} */
+#welcome {
+  margin: 0;
+}
+.guessHeader {
+  padding-top: 3rem;
+  width: 100%;
+  text-align: center;
+}
 #guessPool {
   width: 30%;
   margin: auto;
 }
+/* #scoreBoard { */
+/* } */
 img {
   width: 45%;
   max-width: 350px;
@@ -36,4 +44,13 @@ img {
   display: none;
   top: 20%;
   width: 45%;
+}
+#keyBlanks {
+  width: 40%;
+  margin: auto;
+}
+.hiddenLetter {
+  width: 1rem;
+  float: left;
+  margin: 5px;
 }
