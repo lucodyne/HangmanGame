@@ -5,10 +5,10 @@ body {
   background: url(/assets/images/notebook-paper.jpg);
   background-size: cover;
 }
-.guessHeader {
-}
+/* .guessHeader {
+} */
 #guessPool {
-  width: 25%;
+  width: 30%;
   margin: auto;
 }
 img {
