@@ -2,6 +2,10 @@ body {
   font-family: "Indie Flower", cursive;
   text-align: center;
   font-size: 2.3rem;
+  background: url(/assets/images/notebook-paper.jpg);
+  background-size: cover;
+}
+.guessHeader {
 }
 #guessPool {
   width: 25%;
