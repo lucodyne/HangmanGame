@@ -1,3 +1,6 @@
+// adding onload, hopefully fixes something...:
+// function hangmanScript() {
+// commented onload because it didn't help
 let letterGuess;
 const hangman = {
   answerArray: [
@@ -18,26 +21,30 @@ const hangman = {
 };
 
 // picks a random array value -> lower case, assigns answer
-roulette = function() {
+function shuffle() {
   hangman.RNG = Math.floor(Math.random() * hangman.answerArray.length);
 
   hangman.answer = hangman.answerArray[hangman.RNG].toLowerCase();
   console.log(hangman.answer);
   // THIS IS WHERE WE THROW DIVS INTO PLACEHOLDER
-};
-roulette();
+}
+// starts the game
+shuffle();
 
 // listening for keyboard input
 document.onkeyup = function(keyPress) {
   console.log(keyPress.key);
   letterGuess = keyPress.key.toLowerCase();
 
+  // comparing guess to answer blocks
   if (hangman.failCount < 7) {
     if ("abcdefghijklmnopqrstuvwxyz".includes(letterGuess) == true) {
       if (hangman.usedLetters.includes(letterGuess) == false) {
         if (hangman.answer.includes(letterGuess)) {
           console.log("yes");
+          // THIS IS WHERE WE REPLACE THE "_"s WITH LETTERS
         } else {
+          // create divs with letters in them
           console.log("no");
           hangman.failCount++;
           const targetDiv = document.getElementById("guessPool");
@@ -46,7 +53,9 @@ document.onkeyup = function(keyPress) {
           failDiv.className = "guessItem";
           targetDiv.appendChild(failDiv);
         }
+        // updates screen
         hangman.usedLetters.push(letterGuess);
+        // this is where we lose
         if (hangman.failCount == 7) {
           const bannerShow = document.getElementById("loseBanner");
           // opacity not working ;_; let's try display:
@@ -56,12 +65,17 @@ document.onkeyup = function(keyPress) {
     }
   }
   //THIS IS WHERE THE RESET BUTTON GOES
-  const resetBtn = document.getElementById("resetti");
-  resetBtn.addEventListener("click", function() {
-    hangman.failCount = 0;
-    hangman.usedLetters = [];
-    const resetDiv = document.getElementById("guessPool");
-    resetDiv.innerHTML = "";
-    roulette();
-  });
+  // currently only works inside keypress event for some reason
+  // also, when button clicked, rolls shuffle*<total failcount>, idk why
 };
+let resetBtn = document.getElementById("resetti");
+resetBtn.addEventListener("click", function() {
+  hangman.failCount = 0;
+  hangman.usedLetters = [];
+  const resetDiv = document.getElementById("guessPool");
+  resetDiv.innerHTML = "";
+  shuffle();
+});
+// }
+// ^ this is the close }bracket for onload, do not forget
+// window.onload = hangmanScript();
