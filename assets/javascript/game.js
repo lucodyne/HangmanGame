@@ -17,16 +17,21 @@ const hangman = {
   RNG: 0
 };
 
-// picks a random array value, converts to lower case
-hangman.RNG = Math.floor(Math.random() * hangman.answerArray.length);
+// picks a random array value -> lower case, assigns answer
+roulette = function() {
+  hangman.RNG = Math.floor(Math.random() * hangman.answerArray.length);
 
-hangman.answer = hangman.answerArray[hangman.RNG].toLowerCase();
+  hangman.answer = hangman.answerArray[hangman.RNG].toLowerCase();
+  console.log(hangman.answer);
+  // THIS IS WHERE WE THROW DIVS INTO PLACEHOLDER
+};
+roulette();
 
-console.log(hangman.answer);
-
+// listening for keyboard input
 document.onkeyup = function(keyPress) {
   console.log(keyPress.key);
   letterGuess = keyPress.key.toLowerCase();
+
   if (hangman.failCount < 7) {
     if ("abcdefghijklmnopqrstuvwxyz".includes(letterGuess) == true) {
       if (hangman.usedLetters.includes(letterGuess) == false) {
@@ -44,11 +49,19 @@ document.onkeyup = function(keyPress) {
         hangman.usedLetters.push(letterGuess);
         if (hangman.failCount == 7) {
           const bannerShow = document.getElementById("loseBanner");
-          // bannerShow.style.opacity = 100%;
+          // opacity not working ;_; let's try display:
           hangman.loseScore++;
         }
       }
     }
   }
   //THIS IS WHERE THE RESET BUTTON GOES
+  const resetBtn = document.getElementById("resetti");
+  resetBtn.addEventListener("click", function() {
+    hangman.failCount = 0;
+    hangman.usedLetters = [];
+    const resetDiv = document.getElementById("guessPool");
+    resetDiv.innerHTML = "";
+    roulette();
+  });
 };
