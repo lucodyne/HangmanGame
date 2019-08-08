@@ -65,8 +65,6 @@ document.onkeyup = function(keyPress) {
     }
   }
   //THIS IS WHERE THE RESET BUTTON GOES
-  // currently only works inside keypress event for some reason
-  // also, when button clicked, rolls shuffle*<total failcount>, idk why
 };
 let resetBtn = document.getElementById("resetti");
 resetBtn.addEventListener("click", function() {
