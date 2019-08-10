@@ -34,14 +34,14 @@ img {
   background: red;
   color: white;
   position: absolute;
-  display: none;
+  opacity: 0;
   top: 20%;
   width: 45%;
 }
 #winBanner {
   z-index: 1;
   position: absolute;
-  display: none;
+  opacity: 0;
   top: 20%;
   width: 45%;
 }

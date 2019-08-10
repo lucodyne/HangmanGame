@@ -15,7 +15,7 @@
   <body>
     <h1 id="welcome">WELCOME TO HANGMAN!</h1>
     <img src="#" />
-    <h2 id="loseBanner">YOU LOSE</h2>
+    <h2 id="loseBanner">YOU LOSE!</h2>
     <h2 id="winBanner">CONGRATULATIONS!</h2>
     <div id="keyBlanks"></div>
     <br />
@@ -26,8 +26,14 @@
     <br />
     <br />
     <div id="scoreBoard">
-      <div id="winDisplay">*winshere*</div>
-      <div id="loseDisplay">*losseshere*</div>
+      <div>
+        Wins:
+        <div id="winDisplay"></div>
+      </div>
+      <div>
+        Loses:
+        <div id="loseDisplay"></div>
+      </div>
     </div>
     <script src="assets/javascript/game.js"></script>
   </body>

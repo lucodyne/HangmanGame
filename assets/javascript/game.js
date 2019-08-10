@@ -3,16 +3,9 @@
 // commented onload because it didn't help
 let letterGuess;
 const hangman = {
-  answerArray: [
-    "Baka Mitai",
-    "Judgement",
-    "TwentyFour Hour Cinderella",
-    "Rouge of Love",
-    "Queen of Passion",
-    "Shine",
-    "Heartbreak Mermaid"
-  ],
+  answerArray: ["BTS", "Seventeen", "Twice", "EXO"],
   answer: "",
+  bannerShow: "",
   failCount: 0,
   winScore: 0,
   loseScore: 0,
@@ -74,17 +67,22 @@ document.onkeyup = function(keyPress) {
             multiCheck(hangman.answer, letterGuess);
 
             // REPLACE THE "_"s WITH LETTERS AND COUNT
-            // >_< PLS
-            const changeOut = document.getElementsByClassName(
+            let changeOut = document.getElementsByClassName(
               `letter${letterGuess}`
             );
-            changeOut.innerHTML = letterGuess;
+            Array.from(changeOut).forEach(item => {
+              item.textContent = letterGuess;
+            });
+
+            console.log(changeOut);
 
             // hangman.correctLetters++;
 
             // THIS IS WHERE WE WIN
             if (hangman.correctLetters == hangman.answer.length) {
-              const bannerShow = document.getElementById("winBanner");
+              bannerShow = document.getElementById("winBanner");
+              console.log(bannerShow);
+              bannerShow.style.opacity = "100";
               hangman.winScore++;
             }
           } else {
@@ -100,8 +98,8 @@ document.onkeyup = function(keyPress) {
           hangman.usedLetters.push(letterGuess);
           // this is where we lose
           if (hangman.failCount == 7) {
-            // opacity not working ;_; let's try display:
             const bannerShow = document.getElementById("loseBanner");
+            bannerShow.style.opacity = "100";
             hangman.loseScore++;
           }
         }
@@ -119,6 +117,11 @@ resetBtn.addEventListener("click", function() {
   const resetKey = document.getElementById("keyBlanks");
   resetKey.innerHTML = "";
   hangman.correctLetters = 0;
+  bannerShow = document.getElementById("loseBanner");
+  bannerShow.style.opacity = "0";
+  bannerShow = document.getElementById("winBanner");
+  bannerShow.style.opacity = "0";
+  console.log(bannerShow);
   shuffle();
 });
 // }
