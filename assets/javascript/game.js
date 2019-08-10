@@ -2,6 +2,10 @@
 // function hangmanScript() {
 // commented onload because it didn't help
 
+// controlling audio
+let bgm = document.getElementsByTagName("audio");
+bgm.volume = 0.2;
+
 let letterGuess;
 const hangman = {
   answerArray: [
@@ -113,6 +117,16 @@ document.onkeyup = function(keyPress) {
                 hangman.winScore++;
                 const winUpdate = document.getElementById("winDisplay");
                 winUpdate.textContent = hangman.winScore;
+                // pauses all music
+                const stopAll = document.getElementsByTagName("audio");
+                Array.from(stopAll).forEach(music => {
+                  music.pause();
+                  music.currentTime = 0;
+                });
+                const songChoice = document.getElementById(
+                  `${hangman.answerArray[hangman.RNG]}`
+                );
+                songChoice.play();
               }
             } else {
               // this is the "wrong letter" section
@@ -150,14 +164,6 @@ resetBtn.addEventListener("click", function() {
   tryAgain();
   shuffle();
 });
-
-// controlling audio
-let bgm = document.getElementById("smile");
-bgm.volume = 0.02;
-
-if (hangman.correctLetters == hangman.answer.length) {
-  bgm.pause();
-}
 
 // }
 // ^ this is the close }bracket for onload

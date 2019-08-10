@@ -5,6 +5,7 @@ body {
   background-image: url(/assets/images/notebook-paper.jpg);
   background-size: cover;
   min-width: 425px;
+  color: #555555;
 }
 #welcome {
   margin: 0;
@@ -21,11 +22,6 @@ body {
   width: 30%;
   margin: auto;
 }
-img {
-  width: 45%;
-  max-width: 350px;
-  height: auto;
-}
 .guessItem {
   width: 1rem;
   float: left;
@@ -39,13 +35,17 @@ img {
   opacity: 0;
   top: 35%;
   width: 100%;
+  font-size: 3rem;
 }
 #winBanner {
   z-index: 1;
   position: absolute;
+  background: blue;
+  color: white;
   opacity: 0;
-  top: 20%;
+  top: 35%;
   width: 100%;
+  font-size: 3rem;
 }
 #keyBlanks {
   width: 40%;
@@ -57,10 +57,21 @@ img {
   float: left;
   margin: 5px;
 }
+#resetti {
+  border: none;
+  background: none;
+  color: #555555;
+  position: absolute;
+}
+#resetti:hover {
+  color: #c52300;
+  font-size: 2.5rem;
+}
+
 #scoreBoard {
   position: absolute;
   left: 10%;
-  top: 180px;
+  top: 110px;
 }
 .scoreItems {
   position: relative;
