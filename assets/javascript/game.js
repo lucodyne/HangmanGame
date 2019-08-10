@@ -1,9 +1,21 @@
 // adding onload, hopefully fixes something...:
 // function hangmanScript() {
 // commented onload because it didn't help
+
 let letterGuess;
 const hangman = {
-  answerArray: ["BTS", "Seventeen", "Twice", "EXO"],
+  answerArray: [
+    "BLACKPINK",
+    "BTS",
+    "EXO",
+    "iKON",
+    "Monsta X",
+    "NCT U",
+    "Red Velvet",
+    "SEVENTEEN",
+    "TWICE",
+    "Wanna One"
+  ],
   answer: "",
   bannerShow: "",
   failCount: 0,
@@ -14,16 +26,14 @@ const hangman = {
   dupeCount: 0,
   checkAnswer: "",
   correctLetters: 0
-  // note: these will be counted as UNIQUE letters, dupes will apply simulateously
-  // ...maybe
 };
 
-// picks a random array value -> lower case, assigns answer
+// function to assign answer
 function shuffle() {
   hangman.RNG = Math.floor(Math.random() * hangman.answerArray.length);
 
   hangman.answer = hangman.answerArray[hangman.RNG].toLowerCase();
-  console.log(hangman.answer);
+
   // THIS IS WHERE WE THROW DIVS INTO PLACEHOLDER
   for (answerIndex = 0; answerIndex < hangman.answer.length; answerIndex++) {
     const blankSpace = document.getElementById("keyBlanks");
@@ -41,75 +51,8 @@ function shuffle() {
     blankSpace.appendChild(newBlank);
   }
 }
-// starts the game
-shuffle();
-
-// listening for keyboard input
-document.onkeyup = function(keyPress) {
-  console.log(keyPress.key);
-  letterGuess = keyPress.key.toLowerCase();
-
-  // comparing guess to answer blocks
-  //check for game over first
-  if (hangman.failCount < 7) {
-    if (hangman.correctLetters < hangman.answer.length) {
-      if ("abcdefghijklmnopqrstuvwxyz".includes(letterGuess) == true) {
-        if (hangman.usedLetters.includes(letterGuess) == false) {
-          if (hangman.answer.includes(letterGuess)) {
-            console.log("yes");
-            // count multiples with a function, hard googled for this: https://teamtreehouse.com/community/how-to-count-the-number-of-times-a-specific-character-appears-in-a-string
-            function multiCheck(checkAnswer, x) {
-              let letterConvert = new RegExp(letterGuess, "g");
-              dupeCount = checkAnswer.match(letterConvert).length;
-              hangman.correctLetters += dupeCount;
-            }
-            // }
-            multiCheck(hangman.answer, letterGuess);
-
-            // REPLACE THE "_"s WITH LETTERS AND COUNT
-            let changeOut = document.getElementsByClassName(
-              `letter${letterGuess}`
-            );
-            Array.from(changeOut).forEach(item => {
-              item.textContent = letterGuess;
-            });
-
-            console.log(changeOut);
-
-            // hangman.correctLetters++;
-
-            // THIS IS WHERE WE WIN
-            if (hangman.correctLetters == hangman.answer.length) {
-              bannerShow = document.getElementById("winBanner");
-              console.log(bannerShow);
-              bannerShow.style.opacity = "100";
-              hangman.winScore++;
-            }
-          } else {
-            // create divs with letters in them
-            console.log("no");
-            hangman.failCount++;
-            const targetDiv = document.getElementById("guessPool");
-            const failDiv = document.createElement("div");
-            failDiv.textContent = letterGuess;
-            failDiv.className = "guessItem";
-            targetDiv.appendChild(failDiv);
-          }
-          hangman.usedLetters.push(letterGuess);
-          // this is where we lose
-          if (hangman.failCount == 7) {
-            const bannerShow = document.getElementById("loseBanner");
-            bannerShow.style.opacity = "100";
-            hangman.loseScore++;
-          }
-        }
-      }
-    }
-  }
-  //THIS IS WHERE THE RESET BUTTON GOES
-};
-let resetBtn = document.getElementById("resetti");
-resetBtn.addEventListener("click", function() {
+// function to reset per-game values
+function tryAgain() {
   hangman.failCount = 0;
   hangman.usedLetters = [];
   const resetDiv = document.getElementById("guessPool");
@@ -121,9 +64,98 @@ resetBtn.addEventListener("click", function() {
   bannerShow.style.opacity = "0";
   bannerShow = document.getElementById("winBanner");
   bannerShow.style.opacity = "0";
-  console.log(bannerShow);
+  // MAKING THE IMAGES DISAPPEAR WILL BE SIMILAR TO CHANGING LETTERS
+  let drawOut = document.getElementsByClassName(`hangDraw`);
+  Array.from(drawOut).forEach(item => {
+    item.style.opacity = "0";
+  });
+}
+
+// starts the game
+shuffle();
+
+// listening for keyboard input
+document.onkeyup = function(keyPress) {
+  letterGuess = keyPress.key.toLowerCase();
+  // check if backspace was entered, for reset
+  if (keyPress.keyCode == 8) {
+    tryAgain();
+    shuffle();
+  } else {
+    // comparing guess to answer blocks
+    // checks for game over first
+    if (hangman.failCount < 7) {
+      if (hangman.correctLetters < hangman.answer.length) {
+        if ("abcdefghijklmnopqrstuvwxyz".includes(letterGuess) == true) {
+          if (hangman.usedLetters.includes(letterGuess) == false) {
+            if (hangman.answer.includes(letterGuess)) {
+              // count multiples with a function, hard googled for this: https://teamtreehouse.com/community/how-to-count-the-number-of-times-a-specific-character-appears-in-a-string
+              function multiCheck(checkAnswer, x) {
+                let letterConvert = new RegExp(letterGuess, "g");
+                dupeCount = checkAnswer.match(letterConvert).length;
+                hangman.correctLetters += dupeCount;
+              }
+              multiCheck(hangman.answer, letterGuess);
+
+              // REPLACE THE "_"s WITH LETTERS AND COUNT
+              let changeOut = document.getElementsByClassName(
+                `letter${letterGuess}`
+              );
+              Array.from(changeOut).forEach(item => {
+                item.textContent = letterGuess;
+              });
+              // making the images appear by id
+
+              // THIS IS WHERE WE WIN
+              if (hangman.correctLetters == hangman.answer.length) {
+                bannerShow = document.getElementById("winBanner");
+
+                bannerShow.style.opacity = "100";
+                hangman.winScore++;
+                const winUpdate = document.getElementById("winDisplay");
+                winUpdate.textContent = hangman.winScore;
+              }
+            } else {
+              // this is the "wrong letter" section
+              hangman.failCount++;
+              const targetDiv = document.getElementById("guessPool");
+              const failDiv = document.createElement("div");
+              failDiv.textContent = letterGuess;
+              failDiv.className = "guessItem";
+              targetDiv.appendChild(failDiv);
+              // also, makes images appear
+              const drawFail = document.getElementById(
+                `life${hangman.failCount}`
+              );
+              drawFail.style.opacity = "100";
+            }
+            hangman.usedLetters.push(letterGuess);
+            // this is where we lose
+            if (hangman.failCount == 7) {
+              const bannerShow = document.getElementById("loseBanner");
+              bannerShow.style.opacity = "100";
+              hangman.loseScore++;
+              const loseUpdate = document.getElementById("loseDisplay");
+              loseUpdate.textContent = hangman.loseScore;
+            }
+          }
+        }
+      }
+    }
+  }
+  //THIS IS THE RESET BUTTON
+};
+
+let resetBtn = document.getElementById("resetti");
+resetBtn.addEventListener("click", function() {
+  tryAgain();
   shuffle();
 });
+
+// controlling audio
+const bgm = document.getElementById("smile");
+bgm.volume = 0.02;
+
 // }
-// ^ this is the close }bracket for onload, do not forget
+// ^ this is the close }bracket for onload
 // window.onload = hangmanScript()

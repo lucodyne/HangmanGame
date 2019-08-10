@@ -13,26 +13,42 @@
     <link rel="stylesheet" href="./assets/css/style.css" />
   </head>
   <body>
-    <h1 id="welcome">WELCOME TO HANGMAN!</h1>
-    <img src="#" />
-    <h2 id="loseBanner">YOU LOSE!</h2>
-    <h2 id="winBanner">CONGRATULATIONS!</h2>
-    <div id="keyBlanks"></div>
-    <br />
-    <div class="guessHeader">guessed letters:</div>
-    <div id="guessPool"></div>
-    <br /><br />
-    <button id="resetti">try again?</button>
-    <br />
-    <br />
-    <div id="scoreBoard">
-      <div>
-        Wins:
-        <div id="winDisplay"></div>
-      </div>
-      <div>
-        Loses:
-        <div id="loseDisplay"></div>
+    <audio id="smile" autoplay loop>
+      <source src="assets/sound/Tamagotchi Smile Game.mp3" type="audio/mpeg" />
+    </audio>
+    <h1 id="welcome">WELCOME TO KPOP HANGMAN!</h1>
+    <img src="#" class="hangGallows" id="gallows" />
+    <img src="#" class="hangDraw" id="life1" />
+    <img src="#" class="hangDraw" id="life2" />
+    <img src="#" class="hangDraw" id="life3" />
+    <img src="#" class="hangDraw" id="life4" />
+    <img src="#" class="hangDraw" id="life5" />
+    <img src="#" class="hangDraw" id="life6" />
+    <img src="#" class="hangDraw" id="life7" />
+    <div class="banner" id="loseBanner">
+      <h2>YOU LOSE!</h2>
+    </div>
+    <div class="banner" id="winBanner">
+      <h2>CONGRATULATIONS!</h2>
+    </div>
+    <div class="container">
+      <div id="keyBlanks"></div>
+      <br />
+      <div class="guessHeader">guessed letters:</div>
+      <div id="guessPool"></div>
+      <br /><br />
+      <button id="resetti">try again?</button>
+      <br />
+      <br />
+      <div id="scoreBoard">
+        <div>
+          Wins:
+          <div class="scoreItems" id="winDisplay">0</div>
+        </div>
+        <div>
+          Loses:
+          <div class="scoreItems" id="loseDisplay">0</div>
+        </div>
       </div>
     </div>
     <script src="assets/javascript/game.js"></script>
