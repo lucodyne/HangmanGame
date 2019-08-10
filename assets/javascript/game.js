@@ -104,7 +104,6 @@ document.onkeyup = function(keyPress) {
               Array.from(changeOut).forEach(item => {
                 item.textContent = letterGuess;
               });
-              // making the images appear by id
 
               // THIS IS WHERE WE WIN
               if (hangman.correctLetters == hangman.answer.length) {
@@ -153,8 +152,12 @@ resetBtn.addEventListener("click", function() {
 });
 
 // controlling audio
-const bgm = document.getElementById("smile");
+let bgm = document.getElementById("smile");
 bgm.volume = 0.02;
+
+if (hangman.correctLetters == hangman.answer.length) {
+  bgm.pause();
+}
 
 // }
 // ^ this is the close }bracket for onload
