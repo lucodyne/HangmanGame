@@ -3,8 +3,16 @@
 // commented onload because it didn't help
 
 // controlling audio
-let bgm = document.getElementsByClassName("song");
-bgm.volume = 0.2;
+const sounds = document.getElementsByClassName("soundEffect");
+Array.from(sounds).forEach(item => {
+  item.volume = 0.45;
+});
+const music = document.getElementsByClassName("song");
+Array.from(music).forEach(item => {
+  item.volume = 0.25;
+});
+const bgm = document.getElementById("smile");
+bgm.volume = 0.1;
 
 let letterGuess;
 const hangman = {
@@ -108,7 +116,8 @@ document.onkeyup = function(keyPress) {
               Array.from(changeOut).forEach(item => {
                 item.textContent = letterGuess;
               });
-
+              const se1 = document.getElementById("Scribble1");
+              se1.play();
               // THIS IS WHERE WE WIN
               if (hangman.correctLetters == hangman.answer.length) {
                 bannerShow = document.getElementById("winBanner");
@@ -117,6 +126,8 @@ document.onkeyup = function(keyPress) {
                 hangman.winScore++;
                 const winUpdate = document.getElementById("winDisplay");
                 winUpdate.textContent = hangman.winScore;
+                const se3 = document.getElementById("goodSound");
+                se3.play();
                 // pauses all music
                 const stopAll = document.getElementsByClassName("song");
                 Array.from(stopAll).forEach(music => {
@@ -141,7 +152,7 @@ document.onkeyup = function(keyPress) {
                 `life${hangman.failCount}`
               );
               drawFail.style.opacity = "100";
-              const se2 = document.getElementById("scribble2");
+              const se2 = document.getElementById("Scribble2");
               se2.play();
             }
             hangman.usedLetters.push(letterGuess);
@@ -152,6 +163,8 @@ document.onkeyup = function(keyPress) {
               hangman.loseScore++;
               const loseUpdate = document.getElementById("loseDisplay");
               loseUpdate.textContent = hangman.loseScore;
+              const se4 = document.getElementById("badSound");
+              se4.play();
             }
           }
         }
