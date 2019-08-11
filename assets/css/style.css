@@ -9,6 +9,7 @@ body {
 }
 #welcome {
   margin: 0;
+  font-size: 3rem
 }
 .container {
   margin-top: 400px;
@@ -19,7 +20,7 @@ body {
   text-align: center;
 }
 #guessPool {
-  width: 30%;
+  width: 15%;
   margin: auto;
 }
 .guessItem {
@@ -29,28 +30,27 @@ body {
 }
 #loseBanner {
   z-index: 1;
-  background: red;
+  background: #c52300;
   color: white;
   position: absolute;
   opacity: 0;
-  top: 35%;
+  top: 40%;
   width: 100%;
   font-size: 3rem;
 }
 #winBanner {
   z-index: 1;
   position: absolute;
-  background: blue;
+  background: #0e90ed;
   color: white;
   opacity: 0;
-  top: 35%;
+  top: 40%;
   width: 100%;
   font-size: 3rem;
 }
 #keyBlanks {
   width: 40%;
-  position: absolute;
-  left: 40%;
+  margin: 0 40%;
 }
 .hiddenLetter {
   width: 1rem;
@@ -70,11 +70,13 @@ body {
 
 #scoreBoard {
   position: absolute;
-  left: 10%;
-  top: 110px;
+  left: 80%;
+  top: 95%;
 }
 .scoreItems {
   position: relative;
+  right: -80px;
+  bottom: 40px;
 }
 .hangGallows {
   position: absolute;
