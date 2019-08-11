@@ -3,7 +3,7 @@
 // commented onload because it didn't help
 
 // controlling audio
-let bgm = document.getElementsByTagName("audio");
+let bgm = document.getElementsByClassName("song");
 bgm.volume = 0.2;
 
 let letterGuess;
@@ -118,7 +118,7 @@ document.onkeyup = function(keyPress) {
                 const winUpdate = document.getElementById("winDisplay");
                 winUpdate.textContent = hangman.winScore;
                 // pauses all music
-                const stopAll = document.getElementsByTagName("audio");
+                const stopAll = document.getElementsByClassName("song");
                 Array.from(stopAll).forEach(music => {
                   music.pause();
                   music.currentTime = 0;
@@ -141,6 +141,8 @@ document.onkeyup = function(keyPress) {
                 `life${hangman.failCount}`
               );
               drawFail.style.opacity = "100";
+              const se2 = document.getElementById("scribble2");
+              se2.play();
             }
             hangman.usedLetters.push(letterGuess);
             // this is where we lose
