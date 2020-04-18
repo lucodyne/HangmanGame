@@ -5,7 +5,7 @@ Use your keyboard to guess letters, and fill out the names of K-Pop groups! A so
 Pressing "try again" will reset the round, but won't clear the total score unless you refresh. 
 
 ## Requirements
-[link here](https://lucodyne.github.io/HangmanGame/)
+JavaScript should be enabled in browser
 
 Made with HTML, CSS, and GitHub Pages.
 
